@@ -1,4 +1,4 @@
-var currentUserID = localStorage.getItem("user")
+var currentUserID = localStorage.getItem("user");
 var currentUsername;
 if (!currentUserID) {
   //window.location.href = "/"
@@ -48,7 +48,7 @@ $(document).ready(function () {
     }
     $.get("/api/posts" + authorId, function (data) {
       console.log("Posts", data);
-      posts = data;
+      posts = data.reverse();
       if (!posts || !posts.length) {
 
         displayEmpty();

@@ -14,44 +14,33 @@ module.exports = function(app) {
 
   // index route loads view.html
   app.get("/", function(req, res) {
-    res.sendFile(path.join(__dirname, "../public/pages/samples/login.html"));
-  });
-
-  // cms route loads cms.html
-  app.get("/cms", function(req, res) {
-    res.sendFile(path.join(__dirname, "../public/cms.html"));
-  });
-
-  // blog route loads blog.html
-  app.get("/blog", function(req, res) {
-    res.sendFile(path.join(__dirname, "../public/blog.html"));
-  });
-
-  app.get("/authors", function(req, res) {
-    res.sendFile(path.join(__dirname, "../public/author-manager.html"));
+    res.sendFile(path.join(__dirname, "../public/pages/login.html"));
   });
 
   app.get("/profile", function(req, res) {
-    res.sendFile(path.join(__dirname, "../public/user.html"));
+    res.sendFile(path.join(__dirname, "../public/pages/user.html"));
   });
 
   app.get("/newsfeed", function(req, res) {
-    res.sendFile(path.join(__dirname, "../public/newsfeed.html"));
+    res.sendFile(path.join(__dirname, "../public/pages/newsfeed.html"));
   });
-  //app.get("/index", function(req, res) {
-   // res.sendFile(path.join(__dirname, "../index.html"));
-  //});
+  
+  
   app.get("/survey", function(req, res) {
-    res.sendFile(path.join(__dirname, "../public/pages/samples/register.html"));
+    res.sendFile(path.join(__dirname, "../public/pages/register.html"));
   });
 
-  // app.get("/userlogged", function(req, res) {
-  //   res.sendFile(path.join(__dirname, "../public/user-profile.html"));
-  // });
+  app.get("/password", function(req, res) {
+    res.sendFile(path.join(__dirname, "../public/pages/password.html"));
+  });
+
+  app.get("/all-users", function(req, res) {
+    res.sendFile(path.join(__dirname, "../public/pages/all-users.html"));
+  });
 
 
   app.get("/login", function(req, res) {
-    res.sendFile(path.join(__dirname, "../public/pages/samples/login.html"));
+    res.sendFile(path.join(__dirname, "../public/pages/login.html"));
   });
 
 

@@ -15,6 +15,20 @@ module.exports = function(app) {
   });
 
 
+  app.get("/api/authors/checkID/:name", function(req, res) {
+    db.Author.findOne({
+      where: {
+        name: req.params.name,
+       
+      },
+  
+    }).then(function(dbAuthor) {
+      res.json(dbAuthor);
+    });
+  });
+
+
+
   app.get("/api/authors/:id", function(req, res) {
     // Find one Author with the id in req.params.id and return them to the user with res.json
     db.Author.findOne({
@@ -42,6 +56,22 @@ module.exports = function(app) {
     })
   });
 
+  app.get("/api/authors/password/:realName/:email", function(req, res) {
+   
+    console.log(res);
+    db.Author.findOne({
+      where: {
+        realName: req.params.realName,
+        email: req.params.email
+      },
+      include: [db.Post]
+    }).then(function(dbAuthor) {
+      res.json(dbAuthor);
+    }).catch(function(err){
+      if (err) throw err
+    });
+  });
+
 
 
   app.post("/api/authors", function(req, res) {
@@ -49,6 +79,9 @@ module.exports = function(app) {
     console.log(req.body);
     db.Author.create(req.body).then(function(dbAuthor) {
       res.json(dbAuthor);
+    }).catch(function(err){
+      console.log(err)
+       res.json(err)
     });
   });
 

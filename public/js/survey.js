@@ -9,12 +9,20 @@ $("#new-user").on("click", function () {
   var gender = $("#sex").val().trim();
   var userPass = $("#password").val().trim();
   var cfpass = $("#pass-conf").val().trim();
- 
-  if (!(userPass === cfpass)) {
-    alert("Passwords Don't Match!!");
- 
-  } else {
- 
+
+
+  if (!nameInput || !actualName || !emailInput || !imagLink || !birthdayInput || !gender || !userPass || !cfpass) {
+    // alert("Please fill all fields!")
+    $(".alert-message").html("Please Fill All Fields!");
+    $("#alert-modal").modal("toggle");
+  }
+  else if (!(userPass === cfpass)) {
+    // alert("Passwords Don't Match!!");
+    $(".alert-message").html("Passwords Don't Match!");
+    $("#alert-modal").modal("toggle");
+  }
+  else {
+
     var userNameObject = {
       realName: actualName,
       name: nameInput,
@@ -24,39 +32,31 @@ $("#new-user").on("click", function () {
       sex: gender,
       password: userPass,
       passCon: cfpass
- 
+
     };
- 
+
     console.log(userNameObject);
- 
-    // Don't do anything if the name fields hasn't been filled out
-    if (nameInput = "") {
-      console.log("there is no name")
-    }
+
     upsertNewUser(userNameObject);
   }
- });
+});
 
 
 
 function upsertNewUser(newUserData) {
-  console.log(newUserData);
-  console.log(newUserData.username)
-  $.get("/api/authors/checkId/" + currentUserName, function (data) {
-    // console.log(data + "dataaaa")
-    console.log(data);
-    if (!data){
-      $.post("/api/authors", newUserData)
-      .then(function(res){
+  $.post("/api/authors", newUserData)
+    .then(function (res, err) {
+      console.log(err)
+      console.log(res)
+      if (res.name == "SequelizeUniqueConstraintError") {
+        // alert("That username or email is already in user");
+        $(".alert-message").html("The username or email is already in taken!");
+        $("#alert-modal").modal("toggle");
+      }
+      else {
         window.location.href = "/login"
-      })
-    }
-    else if (data.name == newUserData.username){
-      alert("yo bro you cant use that username")
-    }
-
-  
-  })
+      }
+    })
 }
 
 

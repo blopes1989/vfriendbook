@@ -10,22 +10,26 @@ $("#login-button").on("click", function () {
     currentUserName = $("#username-val").val().trim();
     password = $("#password-val").val().trim();
 
-     console.log(currentUserName);
+    console.log(currentUserName);
 
- 
 
-     $.get("/api/authors/" + currentUserName + "/" + password, function (data) {
-        if (!data){
-            alert("there is no user")
+
+    $.get("/api/authors/" + currentUserName + "/" + password, function (data) {
+        if (!data) {
+            $(".alert-message").html("User Not Found!");
+            $("#alert-modal").modal("toggle");
         }
-        
+
         localStorage.setItem("user", data.id)
         console.log(localStorage);
         window.location.href = "../newsfeed";
 
     });
-    
-})
+
+});
+
+
+
 
 
 //data.Posts
